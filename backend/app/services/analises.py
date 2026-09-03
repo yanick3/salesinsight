@@ -102,3 +102,40 @@ def calcular_faturamento_por_categoria(db: Session) -> list[dict]:
     resultado["faturamento"] = resultado["faturamento"].round(2)
 
     return resultado.to_dict(orient="records")
+
+def gerar_insights(db: Session) -> list[str]:
+    df = carregar_vendas_dataframe(db)
+
+    if df.empty:
+        return ["Ainda não há vendas suficientes para gerar insights."]
+
+    insights = []
+
+    produto_mais_vendido = df.groupby("produto_nome")["quantidade"].sum().idxmax()
+    insights.append(f"O produto mais vendido foi {produto_mais_vendido}.")
+
+    categoria_top = df.groupby("categoria_nome")["valor_total"].sum().idxmax()
+    insights.append(f"A categoria {categoria_top} possui o maior faturamento.")
+
+    cliente_mais_compras = df.groupby("cliente_nome")["id"].count().idxmax()
+    insights.append(f"O cliente {cliente_mais_compras} realizou mais compras.")
+
+    df["mes"] = df["data"].dt.to_period("M")
+    faturamento_mensal = df.groupby("mes")["valor_total"].sum().sort_index()
+
+    if len(faturamento_mensal) >= 2:
+        mes_atual = faturamento_mensal.iloc[-1]
+        mes_anterior = faturamento_mensal.iloc[-2]
+
+        if mes_anterior > 0:
+            variacao = ((mes_atual - mes_anterior) / mes_anterior) * 100
+            if variacao >= 0:
+                insights.append(
+                    f"O faturamento aumentou {variacao:.1f}% em relação ao período anterior."
+                )
+            else:
+                insights.append(
+                    f"O faturamento caiu {abs(variacao):.1f}% em relação ao período anterior."
+                )
+
+    return insights
