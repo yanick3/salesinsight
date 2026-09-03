@@ -1,0 +1,16 @@
+data,cliente_nome,cliente_email,produto_nome,categoria_nome,quantidade,preco_unitario
+2026-01-05,Ana Silva,ana.silva@email.com,Notebook Gamer,Eletrônicos,1,4500.00
+2026-01-06,Bruno Costa,bruno.costa@email.com,Mouse sem Fio,Eletrônicos,2,89.90
+2026-01-07,Ana Silva,ana.silva@email.com,Cadeira Gamer,Móveis,1,1200.00
+2026-01-10,Carla Souza,carla.souza@email.com,Teclado Mecânico,Eletrônicos,1,350.00
+2026-01-12,Bruno Costa,bruno.costa@email.com,Monitor 24 polegadas,Eletrônicos,1,890.00
+2026-01-15,Diego Lima,diego.lima@email.com,Mesa de Escritório,Móveis,1,650.00
+2026-01-18,Ana Silva,ana.silva@email.com,Notebook Gamer,Eletrônicos,1,4500.00
+2026-01-20,Elisa Ramos,elisa.ramos@email.com,Fone Bluetooth,Eletrônicos,3,150.00
+2026-02-02,Carla Souza,carla.souza@email.com,Cadeira Gamer,Móveis,1,1200.00
+2026-02-05,Diego Lima,diego.lima@email.com,Mouse sem Fio,Eletrônicos,1,89.90
+2026-02-08,Bruno Costa,bruno.costa@email.com,Monitor 24 polegadas,Eletrônicos,2,890.00
+2026-02-10,Elisa Ramos,elisa.ramos@email.com,Teclado Mecânico,Eletrônicos,1,350.00
+2026-02-14,Ana Silva,ana.silva@email.com,Mesa de Escritório,Móveis,1,650.00
+2026-02-18,Diego Lima,diego.lima@email.com,Notebook Gamer,Eletrônicos,1,4500.00
+2026-02-22,Carla Souza,carla.souza@email.com,Fone Bluetooth,Eletrônicos,2,150.00
