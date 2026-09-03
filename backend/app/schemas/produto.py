@@ -6,8 +6,10 @@ class ProdutoBase(BaseModel):
     categoria_id: int
 
 
+from pydantic import ConfigDict
+
+
 class ProdutoResponse(ProdutoBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

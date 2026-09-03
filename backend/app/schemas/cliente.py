@@ -6,8 +6,10 @@ class ClienteBase(BaseModel):
     email: str
 
 
+from pydantic import ConfigDict
+
+
 class ClienteResponse(ClienteBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
