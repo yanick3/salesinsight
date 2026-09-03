@@ -61,3 +61,44 @@ def calcular_metricas_dashboard(db: Session) -> dict:
         "produto_mais_vendido": produto_mais_vendido,
         "cliente_que_mais_comprou": cliente_que_mais_comprou,
     }
+
+def calcular_vendas_por_mes(db: Session) -> list[dict]:
+    df = carregar_vendas_dataframe(db)
+    if df.empty:
+        return []
+
+    df["mes"] = df["data"].dt.to_period("M").astype(str)
+    resultado = df.groupby("mes")["valor_total"].sum().reset_index()
+    resultado.columns = ["mes", "faturamento"]
+    resultado["faturamento"] = resultado["faturamento"].round(2)
+
+    return resultado.to_dict(orient="records")
+
+
+def calcular_produtos_mais_vendidos(db: Session, limite: int = 5) -> list[dict]:
+    df = carregar_vendas_dataframe(db)
+    if df.empty:
+        return []
+
+    resultado = (
+        df.groupby("produto_nome")["quantidade"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(limite)
+        .reset_index()
+    )
+    resultado.columns = ["produto", "quantidade_vendida"]
+
+    return resultado.to_dict(orient="records")
+
+
+def calcular_faturamento_por_categoria(db: Session) -> list[dict]:
+    df = carregar_vendas_dataframe(db)
+    if df.empty:
+        return []
+
+    resultado = df.groupby("categoria_nome")["valor_total"].sum().reset_index()
+    resultado.columns = ["categoria", "faturamento"]
+    resultado["faturamento"] = resultado["faturamento"].round(2)
+
+    return resultado.to_dict(orient="records")
